@@ -5,7 +5,107 @@
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="PrismDeGroupingList.Views.MainPage"
              Title="MainPage">
-  <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
-    <Label Text="{Binding Title}" />
+
+
+  <ContentPage.Padding>
+    <OnPlatform x:TypeArguments="Thickness" iOS="0,20,0,0"/>
+  </ContentPage.Padding>
+
+
+  <StackLayout>
+    
+    <Switch IsToggled="{Binding DisplayType, Mode=TwoWay}" />
+
+
+    <ListView ItemsSource="{Binding GroupingUsersByAddress}"
+              HasUnevenRows="True"
+              IsGroupingEnabled="true"
+              GroupDisplayBinding="{Binding Key}">
+
+      <ListView.Triggers>
+        <DataTrigger TargetType="ListView" Binding="{Binding Path=DisplayType}" Value="true">
+          <Setter Property="IsVisible" Value="False" />
+        </DataTrigger >
+      </ListView.Triggers>
+
+      <ListView.ItemTemplate>
+        <DataTemplate>
+          <ViewCell>
+            <Grid Padding="15,5,5,5">
+
+              <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+              </Grid.RowDefinitions>
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+              </Grid.ColumnDefinitions>
+
+              <StackLayout Grid.Row="0" Grid.Column="0" Orientation="Horizontal" Spacing="10">
+                <Label Text="{Binding Name}" FontAttributes="Bold"/>
+                <Label Text="{Binding Kana}"/>
+                <Label Text="{Binding Birthday, StringFormat='{0:D}'}"/>
+              </StackLayout>
+
+              <StackLayout Grid.Row="1" Grid.Column="0" Orientation="Horizontal" Spacing="10">
+                <Label Text="（" FontSize="Small"/>
+                <Label Text="{Binding Address}" FontSize="Small"/>
+                <Label Text="{Binding Age}" FontSize="Small"/>
+                <Label Text="）" FontSize="Small"/>
+              </StackLayout>
+
+            </Grid>
+          </ViewCell>
+        </DataTemplate>
+      </ListView.ItemTemplate>
+
+    </ListView>
+
+
+    <ListView ItemsSource="{Binding GroupingUsersByAge}"
+              HasUnevenRows="True"
+              IsGroupingEnabled="true"
+              GroupDisplayBinding="{Binding Key, StringFormat='{0:0} 歳'}">
+
+      <ListView.Triggers>
+        <DataTrigger TargetType="ListView" Binding="{Binding Path=DisplayType}" Value="false">
+          <Setter Property="IsVisible" Value="False" />
+        </DataTrigger >
+      </ListView.Triggers>
+
+      <ListView.ItemTemplate>
+        <DataTemplate>
+          <ViewCell>
+            <Grid Padding="15,5,5,5">
+
+              <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+              </Grid.RowDefinitions>
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+              </Grid.ColumnDefinitions>
+
+              <StackLayout Grid.Row="0" Grid.Column="0" Orientation="Horizontal" Spacing="10">
+                <Label Text="{Binding Name}" FontAttributes="Bold"/>
+                <Label Text="{Binding Kana}"/>
+                <Label Text="{Binding Birthday, StringFormat='{0:D}'}"/>
+              </StackLayout>
+
+              <StackLayout Grid.Row="1" Grid.Column="0" Orientation="Horizontal" Spacing="10">
+                <Label Text="（" FontSize="Small"/>
+                <Label Text="{Binding Address}" FontSize="Small"/>
+                <Label Text="{Binding Age}" FontSize="Small"/>
+                <Label Text="）" FontSize="Small"/>
+              </StackLayout>
+
+            </Grid>
+          </ViewCell>
+        </DataTemplate>
+      </ListView.ItemTemplate>
+
+    </ListView>
+
   </StackLayout>
+
 </ContentPage>
