@@ -20,7 +20,8 @@
     <ListView ItemsSource="{Binding GroupingUsersByAddress}"
               HasUnevenRows="True"
               IsGroupingEnabled="true"
-              GroupDisplayBinding="{Binding Key}">
+              GroupDisplayBinding="{Binding Key}"
+              GroupShortNameBinding="{Binding Key}">
 
       <ListView.Triggers>
         <DataTrigger TargetType="ListView" Binding="{Binding Path=DisplayType}" Value="true">
