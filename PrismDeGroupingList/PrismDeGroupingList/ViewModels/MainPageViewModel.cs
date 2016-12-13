@@ -4,6 +4,7 @@ using Prism.Navigation;
 using PrismDeGroupingList.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace PrismDeGroupingList.ViewModels
@@ -48,6 +49,19 @@ namespace PrismDeGroupingList.ViewModels
                 Birthday = DateTime.Parse("1977/06/06")
             },
         };
+
+
+        /// <summary>
+        /// これ書いておくとiOS実機でもグループヘッダ表示される
+        /// </summary>
+        public class DummyCollection<S, T> : ObservableCollection<T>
+        {
+            private readonly S _key;
+            public DummyCollection(IGrouping<S, T> a) : base(a)
+            {
+                _key = a.Key;
+            }
+        }
 
 
         private bool _dataType;
